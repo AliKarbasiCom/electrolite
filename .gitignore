@@ -1,0 +1,28 @@
+# ── .NET Build Artifacts ────────────────────────────────────────────
+bin/
+obj/
+publish/
+
+# ── IDE / Editor ────────────────────────────────────────────────────
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ── Rider ───────────────────────────────────────────────────────────
+*.sln.iml
+
+# ── NuGet ───────────────────────────────────────────────────────────
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# ── OS Files ────────────────────────────────────────────────────────
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
