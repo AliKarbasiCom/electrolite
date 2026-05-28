@@ -22,7 +22,7 @@
     <Description>ASUS Battery Charge Limit Manager</Description>
     <Company>alikarbasi.com</Company>
     <Copyright>Copyright (c) 2025 alikarbasi.com</Copyright>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

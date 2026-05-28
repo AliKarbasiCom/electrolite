@@ -23,6 +23,12 @@ internal sealed class ElectroliteTrayApp : ApplicationContext
     private BatteryMode _currentMode = BatteryMode.Unknown;
     private readonly bool _hardwareSupported;
 
+    // Cached Icons and HICON handles to prevent GDI/User resource leaks
+    private readonly Icon _balancedIcon;
+    private readonly Icon _electroliteIcon;
+    private readonly IntPtr _balancedHicon;
+    private readonly IntPtr _electroliteHicon;
+
     // ── Constructor ────────────────────────────────────────────────────
 
     public ElectroliteTrayApp()
@@ -30,6 +36,10 @@ internal sealed class ElectroliteTrayApp : ApplicationContext
         // Check hardware support
         _hardwareSupported = BatteryService.IsHardwareSupported();
         _currentMode = _hardwareSupported ? BatteryService.GetCurrentMode() : BatteryMode.Unknown;
+
+        // Cache tray icons
+        _balancedIcon = CreateTrayIcon(BatteryMode.Balanced, out _balancedHicon);
+        _electroliteIcon = CreateTrayIcon(BatteryMode.Electrolite, out _electroliteHicon);
 
         // ── Flyout ─────────────────────────────────────────────────────
         _flyout = new FlyoutForm();
@@ -41,7 +51,7 @@ internal sealed class ElectroliteTrayApp : ApplicationContext
         // ── Tray Icon ──────────────────────────────────────────────────
         _trayIcon = new NotifyIcon
         {
-            Icon = CreateTrayIcon(_currentMode),
+            Icon = GetTrayIcon(_currentMode),
             Text = GetTooltipText(),
             Visible = true,
             ContextMenuStrip = CreateContextMenu()
@@ -120,7 +130,7 @@ internal sealed class ElectroliteTrayApp : ApplicationContext
         {
             _currentMode = mode;
             _flyout.SetCurrentMode(mode);
-            _trayIcon.Icon = CreateTrayIcon(mode);
+            _trayIcon.Icon = GetTrayIcon(mode);
             _trayIcon.Text = GetTooltipText();
 
             // Brief balloon notification (only when the GUI is not open)
@@ -171,16 +181,21 @@ internal sealed class ElectroliteTrayApp : ApplicationContext
 
                 // Update tray icon on UI thread
                 if (_flyout.InvokeRequired)
-                    _flyout.Invoke(() => _trayIcon.Icon = CreateTrayIcon(liveMode));
+                    _flyout.Invoke(() => _trayIcon.Icon = GetTrayIcon(liveMode));
                 else
-                    _trayIcon.Icon = CreateTrayIcon(liveMode);
+                    _trayIcon.Icon = GetTrayIcon(liveMode);
             }
         }
     }
 
+    private Icon GetTrayIcon(BatteryMode mode)
+    {
+        return mode == BatteryMode.Electrolite ? _electroliteIcon : _balancedIcon;
+    }
+
     // ── Tray Icon Rendering ────────────────────────────────────────────
 
-    private static Icon CreateTrayIcon(BatteryMode mode)
+    private static Icon CreateTrayIcon(BatteryMode mode, out IntPtr hIcon)
     {
         const int size = 32;
         using var bmp = new Bitmap(size, size);
@@ -230,7 +245,8 @@ internal sealed class ElectroliteTrayApp : ApplicationContext
             g.FillRectangle(fillBrush, fillRect);
         }
 
-        return Icon.FromHandle(bmp.GetHicon());
+        hIcon = bmp.GetHicon();
+        return Icon.FromHandle(hIcon);
     }
 
     private string GetTooltipText()
@@ -253,6 +269,13 @@ internal sealed class ElectroliteTrayApp : ApplicationContext
         _trayIcon.Visible = false;
         _trayIcon.Dispose();
         _flyout.Dispose();
+
+        // Release cached icons and their unmanaged HICON handles
+        _balancedIcon.Dispose();
+        _electroliteIcon.Dispose();
+        if (_balancedHicon != IntPtr.Zero) NativeMethods.DestroyIcon(_balancedHicon);
+        if (_electroliteHicon != IntPtr.Zero) NativeMethods.DestroyIcon(_electroliteHicon);
+
         ExitThread();
     }
 
@@ -266,6 +289,12 @@ internal sealed class ElectroliteTrayApp : ApplicationContext
             _trayIcon.Visible = false;
             _trayIcon.Dispose();
             _flyout.Dispose();
+
+            // Release cached icons and their unmanaged HICON handles
+            _balancedIcon.Dispose();
+            _electroliteIcon.Dispose();
+            if (_balancedHicon != IntPtr.Zero) NativeMethods.DestroyIcon(_balancedHicon);
+            if (_electroliteHicon != IntPtr.Zero) NativeMethods.DestroyIcon(_electroliteHicon);
         }
         base.Dispose(disposing);
     }
