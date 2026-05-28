@@ -13,7 +13,7 @@ Thank you for testing Electrolite! Your feedback helps other owners know if the 
 * **CPU / GPU:** [e.g. Ryzen 7 6800H / RTX 3060]
 
 ### 🔋 Electrolite Test Details
-* **Electrolite Version Tested:** [e.g. v0.1.0]
+* **Electrolite Version Tested:** [e.g. v0.1.1]
 * **Run Mode:** [Lite / Self-Contained]
 
 ### ✅ Test Checklist

@@ -40,4 +40,10 @@ internal static partial class NativeMethods
     // ── Drop Shadow via SetClassLong ────────────────────────────────────
 
     public const int CS_DROPSHADOW = 0x00020000;
+
+    // ── Destroy HICON handle ────────────────────────────────────────────
+
+    [LibraryImport("user32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static partial bool DestroyIcon(IntPtr hIcon);
 }

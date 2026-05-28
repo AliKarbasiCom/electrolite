@@ -17,7 +17,7 @@ A clear and concise description of what the issue is.
 ### 🔋 Your Hardware & System Info
 * **ASUS Laptop Model:** [e.g. ASUS Zephyrus G14 (2024)]
 * **Windows Version:** [e.g. Windows 11 23H2]
-* **Electrolite Version:** [e.g. v0.1.0]
+* **Electrolite Version:** [e.g. v0.1.1]
 * **Run Mode:** [e.g. Lite / Self-Contained]
 
 ### 🖼️ Screenshots & Logs
