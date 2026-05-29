@@ -49,8 +49,8 @@ Electrolite has two operating modes to fit your daily usage pattern:
 ## 📦 Download & Installation
 
 1. Go to the [Releases](https://github.com/AliKarbasiCom/electrolite/releases) page.
-2. Download the latest pre-compiled `Electrolite.zip` containing the standalone executable.
-3. Extract and run `Electrolite.exe` as Administrator (required to communicate with the ASUS ACPI driver).
+2. Download the latest pre-compiled `Electrolite_lite.zip` containing the standalone executable.
+3. Extract and run `Electrolite_lite.exe` as Administrator (required to communicate with the ASUS ACPI driver).
 4. See the [Setup & Troubleshooting Guide](../docs/setup_guide.md) for instructions on running at Windows startup and resolving background service conflicts.
 
 ---
