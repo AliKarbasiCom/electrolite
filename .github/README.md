@@ -1,8 +1,17 @@
+![Electrolite Hero](../docs/electrolite_hero.png)
+
 # ⚡ Electrolite
 
 **A simple, lightweight Windows app for ASUS laptop owners to quickly top up their battery to 100% before leaving home.**
 
 Electrolite sits silently in your system tray, letting you toggle your battery charge limit with a single click. It talks directly to your laptop's hardware to quickly remove the 80% limit so you can charge to full and head out.
+
+---
+
+## ⬇️ Quick Download
+
+* **[Download Latest Lite Version](https://github.com/AliKarbasiCom/electrolite/releases/latest/download/Electrolite_lite.exe)** — *Requires [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download).*
+* **[Download Latest Self-Contained Version](https://github.com/AliKarbasiCom/electrolite/releases/latest/download/Electrolite_self_contained.zip)** — *No dependencies required (pre-packaged runtime).*
 
 ---
 
