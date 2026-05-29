@@ -8,12 +8,12 @@ Electrolite is designed to be a lightweight, zero-bloat battery charge limit man
 
 1. **Download the Binary:**
    - Go to the [Releases](https://github.com/AliKarbasiCom/electrolite/releases) page on GitHub.
-   - Download the latest standalone zip containing the compiled executable (`Electrolite.exe`).
+   - Download the latest standalone zip containing the compiled executable (`Electrolite_lite.exe`).
    - Extract the executable to a folder of your choice (e.g., `C:\Program Files\Electrolite\` or `C:\Tools\Electrolite\`).
 
 2. **Run as Administrator:**
    - **Important:** Electrolite requires **Administrator privileges** to write commands directly to the ASUS Embedded Controller driver (`\\.\ATKACPI`) and to sync the battery threshold to the registry (`HKLM`).
-   - Double-click `Electrolite.exe`. The application manifest is pre-configured to automatically request User Account Control (UAC) elevation.
+   - Double-click `Electrolite_lite.exe`. The application manifest is pre-configured to automatically request User Account Control (UAC) elevation.
 
 3. **Verify Startup:**
    - Once running, the utility starts headless (no window, no taskbar icon).
