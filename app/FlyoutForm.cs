@@ -48,6 +48,8 @@ internal sealed class FlyoutForm : Form
     private readonly Label _aboutText;
     private readonly Button _githubButton;
     private readonly Button _quitButton;
+    private readonly Panel _settingsPanel;
+    private readonly ToggleSwitch _autoStartToggle;
 
     // ── State ──────────────────────────────────────────────────────────
 
@@ -114,7 +116,7 @@ internal sealed class FlyoutForm : Form
 
         _aboutPanel = new Panel
         {
-            Size = new Size(FlyoutWidth - ContentPadding * 2, 154),
+            Size = new Size(FlyoutWidth - ContentPadding * 2, 214),
             Location = new Point(ContentPadding, 55),
             BackColor = SurfaceColor,
             Visible = false
@@ -177,7 +179,51 @@ internal sealed class FlyoutForm : Form
         _starButton.FlatAppearance.MouseOverBackColor = AccentHoverColor;
         _starButton.Click += (_, _) => OpenUrl("https://github.com/AliKarbasiCom/electrolite");
 
-        _aboutPanel.Controls.AddRange([_aboutText, _versionLink, _aboutUsButton, _starButton]);
+        // ── Settings Section (inside About) ────────────────────────────
+
+        _settingsPanel = new Panel
+        {
+            Size = new Size(300, 56),
+            Location = new Point(10, 152),
+            BackColor = Color.FromArgb(50, 50, 50)
+        };
+
+        var settingsHeader = new Label
+        {
+            Text = "Settings",
+            Font = new Font("Segoe UI", 8.5f, FontStyle.Bold),
+            ForeColor = TextSecondary,
+            AutoSize = true,
+            Location = new Point(8, 6),
+            BackColor = Color.Transparent
+        };
+
+        var autoStartLabel = new Label
+        {
+            Text = "Start with Windows",
+            Font = new Font("Segoe UI", 8.5f),
+            ForeColor = TextPrimary,
+            AutoSize = true,
+            Location = new Point(8, 32),
+            BackColor = Color.Transparent
+        };
+
+        _autoStartToggle = new ToggleSwitch
+        {
+            Location = new Point(300 - 40 - 8, 30)
+        };
+        _autoStartToggle.SetCheckedSilent(AutoStartManager.IsEnabled());
+        _autoStartToggle.CheckedChanged += (_, _) =>
+        {
+            if (_autoStartToggle.Checked)
+                AutoStartManager.Enable();
+            else
+                AutoStartManager.Disable();
+        };
+
+        _settingsPanel.Controls.AddRange([settingsHeader, autoStartLabel, _autoStartToggle]);
+
+        _aboutPanel.Controls.AddRange([_aboutText, _versionLink, _aboutUsButton, _starButton, _settingsPanel]);
 
         // ── Telemetry Zone ─────────────────────────────────────────────
 
@@ -528,7 +574,7 @@ internal sealed class FlyoutForm : Form
         _bannerLabel.Visible = showBanner;
 
         int newHeight = showBanner ? FlyoutExpandedHeight : FlyoutBaseHeight;
-        if (_aboutVisible) newHeight += 162;
+        if (_aboutVisible) newHeight += 222;
         AnimateToHeight(newHeight);
     }
 
@@ -613,13 +659,13 @@ internal sealed class FlyoutForm : Form
         ShiftControlsForAbout(_aboutVisible);
 
         int height = _currentMode == BatteryMode.Electrolite ? FlyoutExpandedHeight : FlyoutBaseHeight;
-        if (_aboutVisible) height += 162;
+        if (_aboutVisible) height += 222;
         AnimateToHeight(height);
     }
 
     private void ShiftControlsForAbout(bool expanded)
     {
-        int offset = expanded ? 162 : -162;
+        int offset = expanded ? 222 : -222;
 
         _percentageLabel.Top += offset;
         _statusLabel.Top += offset;

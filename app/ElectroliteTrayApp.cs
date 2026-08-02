@@ -33,6 +33,9 @@ internal sealed class ElectroliteTrayApp : ApplicationContext
 
     public ElectroliteTrayApp()
     {
+        // Auto-enable startup on first run
+        AutoStartManager.EnsureFirstRunSetup();
+
         // Check hardware support
         _hardwareSupported = BatteryService.IsHardwareSupported();
         _currentMode = _hardwareSupported ? BatteryService.GetCurrentMode() : BatteryMode.Unknown;
@@ -105,10 +108,22 @@ internal sealed class ElectroliteTrayApp : ApplicationContext
 
         var separator = new ToolStripSeparator();
 
+        var autoStartItem = new ToolStripMenuItem(
+            AutoStartManager.IsEnabled() ? "☑  Start with Windows" : "☐  Start with Windows");
+        autoStartItem.Click += (_, _) =>
+        {
+            bool nowEnabled = !AutoStartManager.IsEnabled();
+            if (nowEnabled)
+                AutoStartManager.Enable();
+            else
+                AutoStartManager.Disable();
+            autoStartItem.Text = nowEnabled ? "☑  Start with Windows" : "☐  Start with Windows";
+        };
+
         var exitItem = new ToolStripMenuItem("Exit");
         exitItem.Click += (_, _) => ExitApplication();
 
-        menu.Items.AddRange([toggleItem, new ToolStripSeparator(), balancedItem, electroliteItem, separator, exitItem]);
+        menu.Items.AddRange([toggleItem, new ToolStripSeparator(), balancedItem, electroliteItem, separator, autoStartItem, new ToolStripSeparator(), exitItem]);
 
         if (!_hardwareSupported)
         {
