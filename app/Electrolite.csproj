@@ -7,6 +7,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <RootNamespace>Electrolite</RootNamespace>
     <AssemblyName>Electrolite</AssemblyName>
+    <ApplicationIcon>electrolite.ico</ApplicationIcon>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ImplicitUsings>enable</ImplicitUsings>
