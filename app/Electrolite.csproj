@@ -22,8 +22,8 @@
     <Product>Electrolite</Product>
     <Description>ASUS Battery Charge Limit Manager</Description>
     <Company>alikarbasi.com</Company>
-    <Copyright>Copyright (c) 2025 alikarbasi.com</Copyright>
-    <Version>0.1.1</Version>
+    <Copyright>Copyright (c) 2026 alikarbasi.com</Copyright>
+    <Version>0.1.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
