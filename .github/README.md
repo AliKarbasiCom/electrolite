@@ -6,6 +6,9 @@
 
 Electrolite sits silently in your system tray, letting you toggle your battery charge limit with a single click. It talks directly to your laptop's hardware to quickly remove the 80% limit so you can charge to full and head out.
 
+![GitHub contributors](https://img.shields.io/github/contributors/alikarbasicom/electrolite) ![GitHub Release](https://img.shields.io/github/v/release/alikarbasicom/electrolite) ![GitHub Release Date](https://img.shields.io/github/release-date/alikarbasicom/electrolite)
+
+
 ---
 
 ## ⬇️ Quick Download
